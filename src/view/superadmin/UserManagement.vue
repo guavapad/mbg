@@ -1,102 +1,68 @@
 <template>
-  <div class="flex bg-slate-100 min-h-screen">
-
-    <Sidebar />
-    <div class="flex-1">
-
-      <Topbar />
+  <AppLayout>
 
     <!-- BREADCRUMB -->
-    <div v-if="!route.meta?.hideLayout" class="px-8 pt-6">
-      <Breadcrumb />
-    </div>
-      <main class="p-8">
 
-        <!-- SEARCH + ACTION -->
+    <main class="p-8">
 
-        <!-- STATS -->
-   <div class="grid md:grid-cols-4 gap-5 my-8">
+      <!-- STATS -->
+      <div class="grid md:grid-cols-4 gap-5 my-8">
+        <StatCard title="Total Users" :value="124" />
+        <StatCard title="Admin" :value="12" />
+        <StatCard title="Staff" :value="98" />
+        <StatCard title="Online" :value="43" />
+      </div>
 
-  <StatCard
-    title="Total Users"
-    :value="124"
-  />
-
-  <StatCard
-    title="Admin"
-    :value="12"
-  />
-
-  <StatCard
-    title="Staff"
-    :value="98"
-  />
-
-  <StatCard
-    title="Online"
-    :value="43"
-  />
-
-</div>
-       <div class="flex items-center justify-between gap-4 mb-6">
-
-  <!-- LEFT: SEARCH kecil -->
-  <div class="flex items-center gap-3">
-    <input
-      v-model="search"
-      type="text"
-      placeholder="Search user..."
-      class="input-primary w-64 md:w-72"
-    />
-  </div>
-
-  <!-- RIGHT: BUTTON -->
-<ButtonAdd @click="openAddUser" />
-
-</div>
-        <!-- TABLE -->
-        <Table :data="paginatedUsers">
-
-          <template #header>
-            <th class="px-6 py-4 text-left">Name</th>
-            <th class="px-6 py-4 text-left">Email</th>
-            <th class="px-6 py-4 text-left">Role</th>
-            <th class="px-6 py-4 text-center">Action</th>
-          </template>
-
-          <template #row="{ item }">
-            <td class="table-cell">{{ item.name }}</td>
-            <td class="table-cell">{{ item.email }}</td>
-            <td class="table-cell">{{ item.role }}</td>
-
-          <td class="table-cell">
-  <div class="flex items-center justify-center gap-3">
-    <EditButton @click="editUser(item.id)" />
-    <DeleteButton @click="deleteUser(item.id)" />
-  </div>
-</td>
-          </template>
-
-        </Table>
-
-        <!-- PAGINATION -->
-        <TablePagination
-          :current-page="currentPage"
-          :per-page="perPage"
-          :total="filteredUsers.length"
-          @change="changePage"
+      <!-- SEARCH + ACTION -->
+      <div class="flex items-center justify-between gap-4 mb-6">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Search user..."
+          class="input-primary w-64 md:w-72"
         />
+        <ButtonAdd @click="openAddUser" />
+      </div>
 
-      </main>
-    </div>
-  </div>
+      <!-- TABLE -->
+      <Table :data="paginatedUsers">
+        <template #header>
+          <th class="px-6 py-4 text-left">Name</th>
+          <th class="px-6 py-4 text-left">Email</th>
+          <th class="px-6 py-4 text-left">Role</th>
+          <th class="px-6 py-4 text-center">Action</th>
+        </template>
+        <template #row="{ item }">
+          <td class="table-cell">{{ item.name }}</td>
+          <td class="table-cell">{{ item.email }}</td>
+          <td class="table-cell">{{ item.role }}</td>
+          <td class="table-cell">
+            <div class="flex items-center justify-center gap-3">
+              <EditButton @click="editUser(item.id)" />
+              <DeleteButton @click="deleteUser(item.id)" />
+            </div>
+          </td>
+        </template>
+      </Table>
+
+      <!-- PAGINATION -->
+      <TablePagination
+        :current-page="currentPage"
+        :per-page="perPage"
+        :total="filteredUsers.length"
+        @change="changePage"
+      />
+
+    </main>
+  </AppLayout>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import DeleteButton from '../../components/DeleteButton.vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import AppLayout from '../../layouts/AppLayout.vue'
+import DeleteButton from '../../components/DeleteButton.vue'
 import Breadcrumb from '../../components/Breadcrumb.vue'
 import ButtonAdd from '../../components/ButtonAdd.vue'
 import EditButton from '../../components/EditButton.vue'

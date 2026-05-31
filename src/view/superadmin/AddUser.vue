@@ -1,19 +1,6 @@
 <template>
-  <div class="flex bg-slate-100 min-h-screen">
-
-    <!-- SIDEBAR -->
-    <Sidebar />
-
-    <div class="flex-1 flex flex-col">
-
-      <!-- TOPBAR -->
-      <Topbar />
-  <div v-if="!route.meta?.hideLayout" class="px-8 pt-6">
-      <Breadcrumb />
-    </div>
-
-      <!-- MAIN CENTER AREA -->
-      <main class="flex-1 flex items-center justify-center p-8">
+  <AppLayout>
+       <main class="flex-1 flex items-center justify-center p-8">
 
         <!-- CARD -->
         <div class="w-full max-w-2xl bg-white rounded-2xl shadow border p-8">
@@ -99,11 +86,13 @@
         </div>
 
       </main>
-    </div>
-  </div>
+  </AppLayout>
+   
+
 </template>
 <script setup>
 import { reactive } from 'vue'
+import AppLayout from '../../layouts/AppLayout.vue'
 import Sidebar from '../../components/Sidebar.vue'
 import Topbar from '../../components/Topbar.vue'
 import Breadcrumb from '../../components/Breadcrumb.vue'
