@@ -1,9 +1,6 @@
 <template>
-  <div class="app">
-    <LoginPage />
-  </div>
+  <router-view />
 </template>
 
 <script setup>
-import LoginPage from './components/LoginPage.vue'
 </script>
